@@ -17,7 +17,10 @@ const debounce=(cb,time=3000)=>{
 const App = () => {
 const [inputValue, setValue]= useState('');
 const [searchResult, setSearchResult]= useState([])
-const [shoppingList, setList]=useState([])
+const [shoppingList, setList]=useState([]||JSON.parse(localStorage.getItem('shopping-list')))
+useEffect(()=>{
+  localStorage.setItem('shopping-list', JSON.stringify(shoppingList))
+},[shoppingList])
 const dataFetch= async (value)=>{
   if(value==='') return
   try{const res = await fetch(`https://api.frontendeval.com/fake/food/${value}`)
